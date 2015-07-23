@@ -1,0 +1,35 @@
+{
+  "name": "handjs",
+  "title": "Handjs",
+  "description": "A poker hand analyser",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Kequc/handjs",
+  "author": "Nathan Lunde-Berry",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kequc/handjs.git"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "coffee-script": "^1.9.3",
+    "mocha": "^2.2.5",
+    "uglify-js": "^2.4.23"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register",
+    "build": "coffee -c -o ./lib/ ./src/hand.coffee && ./node_modules/uglify-js/bin/uglifyjs ./lib/hand.js -m -c -o ./lib/hand.min.js",
+    "build:watch": "coffee -w -c -o ./lib/ ./src/hand.coffee"
+  },
+  "bugs": {
+    "url": "https://github.com/Kequc/handjs/issues"
+  },
+  "main": "lib/hand.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "javascript",
+    "cards",
+    "poker"
+  ]
+}
