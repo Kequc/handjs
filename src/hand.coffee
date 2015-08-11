@@ -1,5 +1,8 @@
-# Return the best poker hand from a set of cards
-Hand = (cards=[]) ->
+# Return the best poker hand from a set or sets of cards
+Hand = (cards...) ->
+
+  # Concatonate
+  cards = [].concat.apply([], cards)
 
   # Eliminate non valid cards
   cards = cards.filter (card) ->
@@ -22,12 +25,12 @@ Hand = (cards=[]) ->
 _ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
 
 _combinations = (cards, k) ->
-  # Find 5 card combinations
+  # Find combinations
 
   if k > cards.length
     []
   else if k == cards.length
-	  [cards]
+    [cards]
   else if k == 1
     result = []
     for card in cards
@@ -54,10 +57,11 @@ _calculate = (cards) ->
     ranked[r] ?= []
     ranked[r].push card
 
-  ranked = ranked.filter (rank) -> rank != undefined
+  ranked = ranked.filter (rank) -> rank
   ranked.reverse()
   ranked.sort (a, b) ->
     if a.length > b.length then -1 else if a.length < b.length then 1 else 0
+
   r1 = _ranks.indexOf ranked[0][0].rank
   if ranked[4]
     r2 = _ranks.indexOf ranked[4][0].rank
@@ -65,7 +69,7 @@ _calculate = (cards) ->
 
   result =
     cards: cards
-  val = 0
+
   if straight && flush && r1 == 12
     # Royal flush
     result.name = 'royal flush'
@@ -105,6 +109,7 @@ _calculate = (cards) ->
   else
     # High card
     result.name = 'high card'
+    val = 0
 
   # Value of hand
   str = ''
