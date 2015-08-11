@@ -30,6 +30,8 @@ describe 'hand.js', ->
     '5d': { rank: '5', suit: 'diamonds' }
     '5c': { rank: '5', suit: 'clubs' }
     '5s': { rank: '5', suit: 'spades' }
+    '3h': { rank: '3', suit: 'hearts' }
+    '3d': { rank: '3', suit: 'diamonds' }
 
   describe 'common hands', ->
 
@@ -81,8 +83,20 @@ describe 'hand.js', ->
           hand = Hand set
           expect(hand.name).to.equal(name)
 
+    it 'detects none', ->
+      hand = Hand [cards['5h'], cards['5c']]
+      expect(hand.name).to.equal('nothing')
+      expect(hand.value).to.equal(0)
+
     it 'concatonates card sets', ->
-      hand = Hand sets['full house'][0], [cards['5s']], [cards['7s']]
+      c = sets['full house'][0]
+      hand = Hand c, [cards['5s'], cards['7s']]
+      expect(hand.name).to.equal('four of a kind')
+      hand = Hand c, [cards['7s'], cards['5s']]
+      expect(hand.name).to.equal('four of a kind')
+      hand = Hand c, [cards['5s']], [cards['7s']]
+      expect(hand.name).to.equal('four of a kind')
+      hand = Hand c, [cards['7s']], [cards['5s']]
       expect(hand.name).to.equal('four of a kind')
 
     describe 'winning scenario', ->
@@ -93,9 +107,13 @@ describe 'hand.js', ->
       it 'high card king beats high card queen', ->
         winner sets['high card'][0], sets['high card'][1]
 
-      it 'four of a kind high card ace beats high card nine', ->
+      it 'four of a kind high card ace beats four of a kind high card nine', ->
         c = sets['four of a kind'][0]
         winner c.concat([cards['ah'], cards['5s']]), c.concat([cards['5h'], cards['5d']])
+
+      it 'four of a kind high card ten beats four of a kind high card five', ->
+        c = sets['four of a kind'][1]
+        winner c.concat([cards['th'], cards['3h']]), c.concat([cards['3h'], cards['3d']])
 
       it 'two pair beats one pair', ->
         winner sets['two pair'][0], sets['one pair'][0]
