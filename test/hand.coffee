@@ -82,7 +82,7 @@ describe 'hand.js', ->
           expect(hand.name).to.equal(name)
 
     it 'concatonates card sets', ->
-      hand = Hand sets['full house'][0], [cards['7s'], cards['5s']]
+      hand = Hand sets['full house'][0], [cards['5s']], [cards['7s']]
       expect(hand.name).to.equal('four of a kind')
 
     describe 'winning scenario', ->
@@ -90,5 +90,12 @@ describe 'hand.js', ->
       winner = (win, lose) ->
         expect(Hand(win).value).to.be.above(Hand(lose).value)
 
-      it 'high card k beats high card q', ->
+      it 'high card king beats high card queen', ->
         winner sets['high card'][0], sets['high card'][1]
+
+      it 'four of a kind high card ace beats high card nine', ->
+        c = sets['four of a kind'][0]
+        winner c.concat([cards['ah'], cards['5s']]), c.concat([cards['5h'], cards['5d']])
+
+      it 'two pair beats one pair', ->
+        winner sets['two pair'][0], sets['one pair'][0]
