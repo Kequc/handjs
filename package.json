@@ -1,7 +1,7 @@
 {
   "name": "handjs",
   "title": "Handjs",
-  "description": "A poker hand analyser",
+  "description": "A hand of poker",
   "version": "0.1.0",
   "homepage": "https://github.com/Kequc/handjs",
   "author": "Nathan Lunde-Berry",
