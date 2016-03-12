@@ -2,6 +2,8 @@
 
 <img src="https://raw.githubusercontent.com/Kequc/handjs/master/images/cards.jpg" alt="Cards" width="300" height="225" />
 
+*Notice:* Repo moved to bitbucket https://bitbucket.org/Kequc/pokerhandjs
+
 Companion module for [deckjs](https://github.com/Kequc/deckjs).
 
 ### Usage
